@@ -1,6 +1,6 @@
 package com.financasGrupo.financasPessoais.model;
 
-public enum tipoTransacao {
+public enum TipoTransacao {
     RECEITA,
     DESPESA
 }

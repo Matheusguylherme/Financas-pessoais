@@ -19,25 +19,21 @@ public class Usuario {
     private Long id;
 
     private String username;
-    
     private String password;
-
     private String email;
+
     @OneToMany(mappedBy = "usuario")
-    private List<Transacao> Transacao;
+    private List<Transacao> transacoes;
 
     public Usuario() {
-        // Construtor padrão necessário para o JPA
     }
-//Constrututor
+
     public Usuario(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-
-//Métodos Getters e Setters    
     public Long getId(){
       return id;
     }
@@ -53,9 +49,10 @@ public class Usuario {
     public String getPassword(){
       return password;
     }
-    
-    
-    
+
+    public List<Transacao> getTransacoes() {
+        return transacoes;
+    }
 
     public void setUsername(String username){
       this.username = username;
@@ -65,9 +62,11 @@ public class Usuario {
       this.email = email;
     }
 
-
     public void setPassword(String password){
         this.password = password;
     }
-    
+
+    public void setTransacoes(List<Transacao> transacoes) {
+        this.transacoes = transacoes;
+    }
 }

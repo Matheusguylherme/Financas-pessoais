@@ -1,6 +1,5 @@
 package com.financasGrupo.financasPessoais.model;
 
-import com.financasGrupo.financasPessoais.model.tipoTransacao;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,31 +8,43 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_transacoes")
 public class Transacao{
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String descricao;
+
     private Double valor;
-    private tipoTransacao tipo; 
-    private String data;
+
+    private TipoTransacao tipo;
+
+    private LocalDateTime data;
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario; // Adicionando o relacionamento com Usuario
+    private Usuario usuario;
 
-//Construtor
-    public Transacao(String descricao, Double valor, tipoTransacao tipo, String data) {
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
+
+    public Transacao() {
+    }
+
+    public Transacao(String descricao, Double valor, TipoTransacao tipo, LocalDateTime data, Categoria categoria) {
         this.descricao = descricao;
         this.valor = valor;
         this.tipo = tipo;
         this.data = data;
+        this.categoria = categoria;
     }
 
-
-//Métodos Getters e Setters
     public Long getId() {
         return id;
     }
@@ -50,24 +61,39 @@ public class Transacao{
         return valor;
     }
 
+    public TipoTransacao getTipo() {
+        return tipo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
     public void setValor(Double valor) {
         this.valor = valor;
     }
 
-    public tipoTransacao getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(tipoTransacao tipo) {
+    public void setTipo(TipoTransacao tipo) {
         this.tipo = tipo;
     }
 
-    public String getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
-    
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

@@ -17,12 +17,11 @@ public class UsuarioService {
     }
 
     public Usuario salvaUsuario(Usuario usuario) {
-        Usuario usuarioExistente = usuarioRepository.findByUsername(usuario.getUsername())
-                .orElse(null);
+         usuarioRepository.findByUsername(usuario.getUsername())
+                .ifPresent(u -> { throw  new RuntimeException("Username já existe"); } );
         return usuarioRepository.save(usuario);
     }
 
-    
     public void deletarUsuario(Long id){
         Usuario usuarioExistente = usuarioRepository.findById(id)
                 .orElse(null);
@@ -44,7 +43,7 @@ public class UsuarioService {
         usuarioExistente.setEmail(usuario.getEmail());
         usuarioExistente.setPassword(usuario.getPassword());      
 
-        return usuarioRepository.save(usuario);  
+        return usuarioRepository.save(usuarioExistente);
     }
 
     public Usuario buscarPorid (Long id) {
